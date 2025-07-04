@@ -8,10 +8,10 @@ const Login = () => {
   const [form] = Form.useForm();
 
   const onSubmit = async () => {
-    const values = form.getFieldsValue();
+    const { username, password } = form.getFieldsValue();
 
     try {
-      const res = await loginService(values.username, values.password);
+      const res = await loginService(username, password);
       if (res.success) {
         Dialog.alert({
           content: <pre>{JSON.stringify(res.user, null, 2)}</pre>,
