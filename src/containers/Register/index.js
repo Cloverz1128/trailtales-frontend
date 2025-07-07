@@ -3,8 +3,8 @@ import {
   Button, Input, 
 } from 'antd-mobile';
 import style from './index.module.css';
-import DatePickerInput from '../../components/DatePickerInput';
-import Header from '../../components/Header';
+import DatePickerInput from '@components/DatePickerInput';
+import Header from '@components/Header';
 
 const Register = () => {
 
