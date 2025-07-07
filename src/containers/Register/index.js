@@ -1,23 +1,64 @@
 
 import {
-  Button, Input, 
+  Button, Form, Input,
 } from 'antd-mobile';
-import style from './index.module.css';
+import style from './index.module.scss';
 import DatePickerInput from '@components/DatePickerInput';
 import Header from '@components/Header';
+import { useState } from 'react';
+
+const ACCOUNT_TYPE = {
+  PHONE: 'phone',
+  EMAIL: 'email',
+};
 
 const Register = () => {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    tel: '',
+    email: '',
+    birthday: '',
+  });
+
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.PHONE); // set default as phone
+
+  const onAccountTypeChange = (e) => {
+    if (accountType === ACCOUNT_TYPE.PHONE) {
+      setAccountType(ACCOUNT_TYPE.EMAIL);
+      return;
+    }
+    setAccountType(ACCOUNT_TYPE.PHONE);
+  };
 
   return <div>
     <Header />
     <div className={style.form}>
       <div className={style.formTitle}>Create your account</div>
-      <Input placeholder="name" className={style.input}/>
-      <Input placeholder="phone" className={style.input}/>
-      <div className={style.changeTypeButton}>Use email instead</div>
-      <div className={style.birthdayTitle}>Date of Birth</div>
-      <div>This will not be shown publicly. Confirm your own age, even if this account is for a business, a pet, or something else.</div>
-      <DatePickerInput />
+      <Form initialValues={formData} className={style.formContainer}>
+        <Form.Item name="name">
+          <Input placeholder="Name" className={style.input} />
+        </Form.Item>
+        {accountType === ACCOUNT_TYPE.PHONE && (
+          <Form.Item name="phone">
+            <Input placeholder="Phone" className={style.input} />
+          </Form.Item>
+        )}
+        {accountType === ACCOUNT_TYPE.EMAIL && (
+          <Form.Item name="email">
+            <Input placeholder="Email" className={style.input} />
+          </Form.Item>
+        )}
+        <div className={style.changeTypeButton} onClick={onAccountTypeChange}>
+          {accountType === ACCOUNT_TYPE.EMAIL ? 'Use phone instead' : 'Use email instead'}
+        </div>
+        <div className={style.birthdayTitle}>Date of Birth</div>
+        <div>This will not be shown publicly.</div>
+        <Form.Item name="birthday">
+          <DatePickerInput />
+        </Form.Item>
+      </Form>
+
     </div>
 
     <div className={style.footer}>

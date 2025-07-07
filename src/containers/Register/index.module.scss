@@ -1,6 +1,5 @@
-
-@value tBlue #1d9bf0;
-@value tGray #868a8c;
+$tBlue: #1d9bf0;
+$tGray: #868a8c;
 
 .form {
   margin: 0 30px;
@@ -8,6 +7,25 @@
 
 .input {
   composes: input from '../../common.module.css';
+}
+
+.formContainer {
+  :global(.adm-list-body) {
+    background: none;
+    border: none;
+  }
+  :global(.adm-list-item-content) {
+    border: none;
+  }
+}
+
+:global(.adm-list-body) {
+  background: none;
+  border: none;
+}
+
+:global(.adm-list-item-content) {
+  border: none;
 }
 
 .formTitle {
@@ -18,7 +36,7 @@
 }
 
 .changeTypeButton {
-  color: tBlue;
+  color: $tBlue;
 }
 
 .birthdayTitle {
@@ -38,7 +56,7 @@
 .footerButton {
   margin: 0 auto;
   border-radius: 50px;
-  background-color: tGray;
+  background-color: $tGray;
   color: white;
   font-size: 18px;
   width: 80%;
