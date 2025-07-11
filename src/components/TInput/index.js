@@ -1,15 +1,15 @@
 import { Input } from 'antd-mobile';
 import style from './index.module.scss'
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 /* Rich interactive input component */
-const TInput = ({
+const TInput = forwardRef(({
   label,
   value,
   length,
   onChange
-}) => {
+}, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hide, setHide] = useState(false);
 
@@ -51,13 +51,20 @@ const TInput = ({
       />
     </div>
   );
-};
+});
 
 TInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  length: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  length: PropTypes.number,
+  onChange: PropTypes.func,
+}
+
+TInput.defaultProps = {
+  label: '',
+  value: undefined,
+  length: undefined,
+  onChange: () => {},
 }
 
 export default TInput;

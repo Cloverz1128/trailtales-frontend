@@ -3,6 +3,8 @@
 .tInput {
   composes: input from '../../common.module.scss';
   position: relative;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .tInputFocused {
@@ -27,8 +29,16 @@
   float: right;
 }
 
+:global(.adm-input-element) {
+  padding-right: 25px !important;
+}
+
 .inputItem {
   height: 53px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
 
 .labelFocused {
@@ -42,5 +52,6 @@
 .inputItemFocused {
   margin: 15px;
   height: 30px;
+  
 }
 
