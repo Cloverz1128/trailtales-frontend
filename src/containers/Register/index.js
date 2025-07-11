@@ -4,6 +4,7 @@ import {
 } from 'antd-mobile';
 import style from './index.module.scss';
 import DatePickerInput from '@components/DatePickerInput';
+import TInput from '@components/TInput';
 import Header from '@components/Header';
 import { useState } from 'react';
 
@@ -16,7 +17,7 @@ const Register = () => {
   const [form] = Form.useForm();
   const [formData] = useState({
     name: '',
-    tel: '',
+    phone: '',
     email: '',
     birthday: '20250101',
   });
@@ -49,14 +50,14 @@ const Register = () => {
           name="name"
           rules={[{required: true, message: "What’s your name?"}]}
         >
-          <Input placeholder="Name" className={style.input} />
+          <TInput length={20} label="Name"/>
         </Form.Item>
         {accountType === ACCOUNT_TYPE.PHONE && (
           <Form.Item 
             name="phone"
             rules={[{required: true, message: "Please enter a valid phone number."}]}
           >
-            <Input placeholder="Phone" className={style.input} />
+            <TInput length={10} label="Phone"/>
           </Form.Item>
         )}
         {accountType === ACCOUNT_TYPE.EMAIL && (
@@ -64,7 +65,7 @@ const Register = () => {
             name="email"
             rules={[{required: true, message: "Please enter a valid phone email."}]}
           >
-            <Input placeholder="Email" className={style.input} />
+            <TInput label="Email" />
           </Form.Item>
         )}
         <div className={style.changeTypeButton} onClick={onAccountTypeChange}>
