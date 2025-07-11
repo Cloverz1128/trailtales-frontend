@@ -1,6 +1,6 @@
 import { CloseOutline } from 'antd-mobile-icons';
 import logo from '@assets/logo.png';
-import style from './index.module.css';
+import style from './index.module.scss';
 
 export default () => (
   <div className={style.header}>

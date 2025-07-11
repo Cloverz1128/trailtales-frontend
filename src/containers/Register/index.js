@@ -13,12 +13,12 @@ const ACCOUNT_TYPE = {
 };
 
 const Register = () => {
-
-  const [formData, setFormData] = useState({
+  const [form] = Form.useForm();
+  const [formData] = useState({
     name: '',
     tel: '',
     email: '',
-    birthday: '',
+    birthday: '20250101',
   });
 
   const [accountType, setAccountType] = useState(ACCOUNT_TYPE.PHONE); // set default as phone
@@ -31,21 +31,39 @@ const Register = () => {
     setAccountType(ACCOUNT_TYPE.PHONE);
   };
 
+  const onClickNextStep = async () => {
+    const validate = await form.validateFields();
+    if (validate) {
+      // const data = form.getFieldValue();
+      console.log(validate)
+    }
+    
+  }
+
   return <div>
     <Header />
     <div className={style.form}>
       <div className={style.formTitle}>Create your account</div>
-      <Form initialValues={formData} className={style.formContainer}>
-        <Form.Item name="name">
+      <Form form={form} initialValues={formData} className={style.formContainer}>
+        <Form.Item 
+          name="name"
+          rules={[{required: true, message: "What’s your name?"}]}
+        >
           <Input placeholder="Name" className={style.input} />
         </Form.Item>
         {accountType === ACCOUNT_TYPE.PHONE && (
-          <Form.Item name="phone">
+          <Form.Item 
+            name="phone"
+            rules={[{required: true, message: "Please enter a valid phone number."}]}
+          >
             <Input placeholder="Phone" className={style.input} />
           </Form.Item>
         )}
         {accountType === ACCOUNT_TYPE.EMAIL && (
-          <Form.Item name="email">
+          <Form.Item 
+            name="email"
+            rules={[{required: true, message: "Please enter a valid phone email."}]}
+          >
             <Input placeholder="Email" className={style.input} />
           </Form.Item>
         )}
@@ -62,7 +80,7 @@ const Register = () => {
     </div>
 
     <div className={style.footer}>
-      <Button className={style.footerButton}> Next</Button>
+      <Button className={style.footerButton} onClick={onClickNextStep}> Next</Button>
     </div>
 
   </div>
