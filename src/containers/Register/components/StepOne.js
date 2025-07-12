@@ -41,6 +41,10 @@ const StepOne = ({
     }
   }
 
+  useEffect(() => {
+    onValuesChange(); // validate after accountType change
+  }, [accountType]);
+
   // TO-DO: footer button bugs when change between to use mail
   const onValuesChange = async () => {
     try {
