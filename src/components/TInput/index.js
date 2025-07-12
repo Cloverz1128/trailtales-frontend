@@ -1,6 +1,6 @@
 import { Input } from 'antd-mobile';
 import style from './index.module.scss'
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 /* Rich interactive input component */
@@ -18,11 +18,17 @@ const TInput = forwardRef(({
     setHide(true);
   }
 
+  useEffect(() => {
+    if (value) {
+      setIsFocused(true);
+      setHide(true);
+    }
+  }, []);
+
   const onBlur = () => {
     if (length && value.length === 0) {
       setIsFocused(false);
     }
-    // setIsFocused(true);
     setHide(false);
   }
 

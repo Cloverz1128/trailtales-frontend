@@ -1,12 +1,11 @@
 
-import {
-  Button, Form,
-} from 'antd-mobile';
+import { Form } from 'antd-mobile';
 import style from './index.module.scss';
 import DatePickerInput from '@components/DatePickerInput';
 import TInput from '@components/TInput';
 import Header from '@components/Header';
-import { useState } from 'react';
+import Footer from './components/Footer';
+import { useEffect, useState } from 'react';
 
 const ACCOUNT_TYPE = {
   PHONE: 'phone',
@@ -23,6 +22,7 @@ const Register = () => {
   });
 
   const [accountType, setAccountType] = useState(ACCOUNT_TYPE.PHONE); // set default as phone
+  const [footerButtonDisabled, setFooterButtonDisabled] = useState();
 
   const onAccountTypeChange = (e) => {
     if (accountType === ACCOUNT_TYPE.PHONE) {
@@ -35,17 +35,37 @@ const Register = () => {
   const onClickNextStep = async () => {
     const validate = await form.validateFields();
     if (validate) {
-      // const data = form.getFieldValue();
       console.log(validate)
     }
-    
+  }
+
+  // TO-DO: footer button bugs when change between to use mail
+  const onValuesChange = async() => {
+    try {
+      const validate = await form.validateFields();
+      if (validate) {
+        setFooterButtonDisabled(false);
+        return;
+      }
+    } catch (e) {
+      if (e.errorFields.length === 0) {
+        setFooterButtonDisabled(false);
+        return;
+      }
+      setFooterButtonDisabled(true);
+    }
   }
 
   return <div>
     <Header />
     <div className={style.form}>
       <div className={style.formTitle}>Create your account</div>
-      <Form form={form} initialValues={formData} className={style.formContainer}>
+      <Form 
+        form={form} 
+        initialValues={formData} 
+        onValuesChange={onValuesChange} 
+        className={style.formContainer
+      }>
         <Form.Item 
           name="name"
           rules={[{required: true, message: "What’s your name?"}]}
@@ -55,7 +75,11 @@ const Register = () => {
         {accountType === ACCOUNT_TYPE.PHONE && (
           <Form.Item 
             name="phone"
-            rules={[{required: true, message: "Please enter a valid phone number."}]}
+            rules={[{
+              required: true, 
+              message: "Please enter a valid phone number.",
+              pattern: /^0?4\d{8}$/,
+            }]}
           >
             <TInput length={10} label="Phone"/>
           </Form.Item>
@@ -63,14 +87,18 @@ const Register = () => {
         {accountType === ACCOUNT_TYPE.EMAIL && (
           <Form.Item 
             name="email"
-            rules={[{required: true, message: "Please enter a valid phone email."}]}
+            rules={[{
+              required: true, 
+              message: "Please enter a valid email.",
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            }]}
           >
-            <TInput label="Email" />
+            <TInput label="Email"/>
           </Form.Item>
         )}
-        <div className={style.changeTypeButton} onClick={onAccountTypeChange}>
+        <span className={style.changeTypeButton} onClick={onAccountTypeChange}>
           {accountType === ACCOUNT_TYPE.EMAIL ? 'Use phone instead' : 'Use email instead'}
-        </div>
+        </span>
         <div className={style.birthdayTitle}>Date of Birth</div>
         <div>This will not be shown publicly.</div>
         <Form.Item name="birthday">
@@ -80,9 +108,11 @@ const Register = () => {
 
     </div>
 
-    <div className={style.footer}>
-      <Button className={style.footerButton} onClick={onClickNextStep}> Next</Button>
-    </div>
+    <Footer label={'Next'} disabled={footerButtonDisabled}  onClick={onClickNextStep}/>
+
+    {/* <div className={style.footer}>
+      <Button className={style.footerButton} > Next</Button>
+    </div> */}
 
   </div>
 }
