@@ -1,8 +1,10 @@
 import {
-  Button, Input, Form, Dialog,
+  Button, Form, Dialog,
 } from 'antd-mobile';
-import { loginService } from '../../services/login';
-import './index.css';
+import { login } from '../../services/login';
+import Header from '@components/Header';
+import TInput from '@components/TInput';
+import style from './index.module.scss';
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -11,7 +13,7 @@ const Login = () => {
     const { username, password } = form.getFieldsValue();
 
     try {
-      const res = await loginService(username, password);
+      const res = await login(username, password);
       if (res.success) {
         Dialog.alert({
           content: <pre>{JSON.stringify(res.user, null, 2)}</pre>,
@@ -40,24 +42,30 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <Form
-        form={form}
-        layout="horizontal"
-        footer={(
-          <Button block color="primary" onClick={onSubmit} size="large">
+    <>
+      <Header />
+      <div className={style.login}>
+
+        <div className={style.formTitle}>Login to TrailTales</div>
+        <Form
+          form={form}
+          className={style.formContainer}
+        >
+          <Form.Item name="username" rules={[{ required: true, message: "Please enter your username." }]}> 
+            <TInput label="Username" />
+          </Form.Item>
+          <Form.Item name="password" rules={[{ required: true, message: "Please enter your password." }]}>
+            <TInput label="Password" type="password" />
+          </Form.Item>
+          <Button className={style.footerButton} onClick={onSubmit}>
             Login
           </Button>
-        )}
-      >
-        <Form.Item label="Username" name="username">
-          <Input placeholder="Input username" clearable />
-        </Form.Item>
-        <Form.Item label="Password" name="password">
-          <Input placeholder="Input password" clearable type="password" />
-        </Form.Item>
-      </Form>
-    </div>
+        </Form>
+        <div className={style.goToRegister}>
+          Don't have an account? <a href='/'>Register</a>
+        </div>
+      </div>
+    </>
   );
 };
 

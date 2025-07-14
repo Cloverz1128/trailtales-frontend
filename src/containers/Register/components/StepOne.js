@@ -73,7 +73,7 @@ const StepOne = ({
         }>
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "What’s your name?" }]}
+          rules={[{ required: true, message: "Please enter a username." }]}
         >
           <TInput length={20} label="Username" />
         </Form.Item>
