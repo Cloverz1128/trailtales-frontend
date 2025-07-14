@@ -44,7 +44,7 @@ const TInput = forwardRef(({
         {label}
         {hide && length && (
           <span className={style.labelRight}>
-            {value.length}/{length}
+            {value?.length}/{length}
           </span>
         )}
       </div>

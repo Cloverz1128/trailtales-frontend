@@ -19,8 +19,13 @@ const StepTwo = ({
 
   useEffect(() => {
     if (password && confirmPassword) {
-      setDisabled(password !== confirmPassword);
-    } else {
+      if (password.length >= 8) {
+        setDisabled(password !== confirmPassword);
+      } else {
+        setDisabled(true);
+      }
+    }
+    else {
       setDisabled(true);
     }
   }, [password, confirmPassword]);
@@ -31,28 +36,31 @@ const StepTwo = ({
         <div className={style.formTitle}>Create your account</div>
         <div className={style.showLabelContainer}>
           <div className={style.showLabel}>
-            Name: 
-            <span> {userInfo.name} </span>
+            Username:
+            <span> {userInfo.username} </span>
           </div>
           {userInfo.email && (
-          <div className={style.showLabel}>
-            Email: 
-            <span> {userInfo.email} </span>
-          </div>
+            <div className={style.showLabel}>
+              Email:
+              <span> {userInfo.email} </span>
+            </div>
           )}
           {userInfo.tel && (
-          <div className={style.showLabel}>
-            Phone: 
-            <span> {userInfo.phone} </span>
-          </div>
+            <div className={style.showLabel}>
+              Phone:
+              <span> {userInfo.phone} </span>
+            </div>
           )}
           <div className={style.showLabel}>
             Date of Birth:
-            <span>{userInfo.birthday}</span>
+            <span> {userInfo.birthday} </span>
           </div>
         </div>
         <div className={style.label}>Please input your password: </div>
         <Input className={style.input} type="password" onChange={val => setPassword(val)} />
+        {password && password.length < 8 && (
+          <div className={style.showTip}>Password must be at least 8 characters.</div>
+        )}
         <div className={style.label}>Confirm your password: </div>
         <Input className={style.input} type="password" onChange={val => setConfirmPassword(val)} />
         {disabled && <div className={style.showTip}>Passwords do not match.</div>}
@@ -65,7 +73,7 @@ const StepTwo = ({
 StepTwo.propTypes = {
   confirmRegisterHandler: PropTypes.func.isRequired,
   userInfo: PropTypes.shape({
-    name: PropTypes.string,
+    username: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
     birthday: PropTypes.string,

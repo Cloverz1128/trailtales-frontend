@@ -17,13 +17,13 @@ const StepOne = ({
 }) => {
   const [form] = Form.useForm();
   const [formData] = useState({
-    name: '',
+    username: '',
     phone: '',
     email: '',
     birthday: '20250101',
   });
 
-  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.PHONE); // set default as phone
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.EMAIL); // set default as email
   const [footerButtonDisabled, setFooterButtonDisabled] = useState(true);
 
   const onAccountTypeChange = (e) => {
@@ -72,10 +72,10 @@ const StepOne = ({
         className={style.formContainer
         }>
         <Form.Item
-          name="name"
+          name="username"
           rules={[{ required: true, message: "What’s your name?" }]}
         >
-          <TInput length={20} label="Name" />
+          <TInput length={20} label="Username" />
         </Form.Item>
         {accountType === ACCOUNT_TYPE.PHONE && (
           <Form.Item
