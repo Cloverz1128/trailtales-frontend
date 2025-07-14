@@ -1,0 +1,57 @@
+@import '../../common.module.scss';
+
+.tInput {
+  composes: input from '../../common.module.scss';
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.tInputFocused {
+  composes: tInput;
+  border: solid 2px $tBlue;
+}
+
+.label {
+  position: absolute;
+  top: 13px;
+  left: 10px;
+  color: #cecece;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 20px;
+  z-index: 1;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.labelRight {
+  float: right;
+}
+
+:global(.adm-input-element) {
+  padding-right: 25px !important;
+}
+
+.inputItem {
+  height: 53px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.labelFocused {
+  composes: label;
+  top: 5px;
+  color: $tBlue;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+
+.inputItemFocused {
+  margin: 15px;
+  height: 30px;
+  
+}
+
