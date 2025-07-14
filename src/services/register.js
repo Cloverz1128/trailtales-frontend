@@ -1,3 +1,3 @@
 import { post } from '@utils/request';
 
-export const registerUser = (params) => post('/api/accounts/register/', params);
+export const register = (params) => post('/api/accounts/register/', params);

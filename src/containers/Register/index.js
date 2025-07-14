@@ -2,7 +2,7 @@ import Header from '@components/Header';
 import { useEffect, useState } from 'react';
 import StepOne from './components/StepOne';
 import StepTwo from './components/StepTwo';
-import { registerUser } from '@services/register';
+import { register } from '@services/register';
 import Show from '@components/Show';
 import { Toast } from 'antd-mobile';
 
@@ -29,7 +29,7 @@ const Register = () => {
       password,
     };
     try {
-      const res = await registerUser(payload);
+      const res = await register(payload);
 
       if (res?.success) {
         Toast.show({
