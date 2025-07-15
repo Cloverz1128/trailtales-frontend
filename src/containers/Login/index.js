@@ -2,9 +2,9 @@ import {
   Button, Form, Dialog,
 } from 'antd-mobile';
 import { login } from '../../services/login';
-import Header from '@components/Header';
 import TInput from '@components/TInput';
 import style from './index.module.scss';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -43,7 +43,6 @@ const Login = () => {
 
   return (
     <>
-      <Header />
       <div className={style.login}>
 
         <div className={style.formTitle}>Login to TrailTales</div>
@@ -51,7 +50,7 @@ const Login = () => {
           form={form}
           className={style.formContainer}
         >
-          <Form.Item name="username" rules={[{ required: true, message: "Please enter your username." }]}> 
+          <Form.Item name="username" rules={[{ required: true, message: "Please enter your username." }]}>
             <TInput label="Username" />
           </Form.Item>
           <Form.Item name="password" rules={[{ required: true, message: "Please enter your password." }]}>
@@ -62,7 +61,7 @@ const Login = () => {
           </Button>
         </Form>
         <div className={style.goToRegister}>
-          Don't have an account? <a href='/'>Register</a>
+          Don't have an account? <Link to='/register'>Register</Link>
         </div>
       </div>
     </>
