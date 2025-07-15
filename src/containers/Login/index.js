@@ -5,9 +5,17 @@ import { login } from '../../services/login';
 import TInput from '@components/TInput';
 import style from './index.module.scss';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppContext } from '@utils/context';
 
 const Login = () => {
   const [form] = Form.useForm();
+
+  const [, setStore] = useAppContext();
+
+  useEffect(() => {
+    setStore({ closeHeaderHandler: null });
+  }, []);
 
   const onSubmit = async () => {
     const { username, password } = form.getFieldsValue();
